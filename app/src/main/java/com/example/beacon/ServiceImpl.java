@@ -5,6 +5,8 @@ package com.example.beacon;
  */
 
 import android.app.IntentService;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Intent;
@@ -26,6 +28,7 @@ public class ServiceImpl extends IntentService {
     private long seconds;
     private BufferedReader reader;
     private ArrayList<Beacon> scanned_beacons = new ArrayList<>();
+    public static  int NOTIFICATION_ID = 1; //Andriy. 02.12.2016
 
     public ServiceImpl() {
         super("ServiceImpl");
@@ -37,7 +40,8 @@ public class ServiceImpl extends IntentService {
         Log.v("ServiceImpl", "onHandleIntent running");
 
         //TODO: uncomment this, when implemented setupInputReader();
-        setupInputReader(); //Done. Petro 30.11.2016
+        //Done. Petro 30.11.2016
+        setupInputReader();
 
         //TODO: get the seconds from intent
         // Done. Petro 29.11.16
@@ -53,9 +57,26 @@ public class ServiceImpl extends IntentService {
 
                 if(beacon != null){
                     //TODO: add beacons to the List of scanned beacons
+                    // Done. Petro.
                     scanned_beacons.add(beacon);
 
                     //TODO: notification
+                    //Done. Andriy 02.12.2016
+                    Intent intent1 = new Intent(this, AddBeaconsActivity.class);
+
+                    PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent1, 0);
+                    Notification notification = new Notification.Builder(this)
+                            .setSmallIcon(R.mipmap.ic_launcher)
+                            .setContentTitle("New Beacon found")
+                            .setContentIntent(pIntent)
+                            .setAutoCancel(true)
+                            .setPriority(Notification.PRIORITY_MAX)
+                            .setDefaults(Notification.DEFAULT_VIBRATE)
+                            .setContentText(beacon.toString())
+                            .build();
+                    NotificationManager notificationManager =
+                            (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                    notificationManager.notify(NOTIFICATION_ID, notification);
 
                     //TODO: intent to AddBeaconsActivity
 
@@ -84,6 +105,7 @@ public class ServiceImpl extends IntentService {
                 }
 
                 //TODO: put the service to sleep
+                // Done Petro. 30.11.16
                 Thread.sleep(millis);
 
             }  catch (InterruptedException iEx){
@@ -97,11 +119,12 @@ public class ServiceImpl extends IntentService {
     private void setupInputReader() {
 
         //TODO: read the file "Beacon.txt"
+        // Done. Petro 29.11.16
         //read the header in advance to exclude it from the output
         try {
             File file = new File(getFilesDir(), "Beacons.txt");
             reader = new BufferedReader(new FileReader(file));
-            String header = reader.readLine();
+            reader.readLine();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -112,6 +135,7 @@ public class ServiceImpl extends IntentService {
 
     private Beacon scanBeacon() {
         //TODO: Read a line and split one row into the beacon components uuid, major and minor
+        // Done. Petro 29.12.16
         //create a new beacon and return it
         Log.v("ServiceImpl", "scanBeacon() called");
         String line = "";
@@ -132,15 +156,13 @@ public class ServiceImpl extends IntentService {
             e.printStackTrace();
         }
         try {
-            Log.v("ServiceImpl", scanned_beacon.toString());
+            Log.v("ServiceImpl", scanned_beacon.toString()); // prints scanned beacons in logs.
         }
         catch (NullPointerException e) {
-            Log.e("ServiceImpl", "beacon.toString() exception");
+            Log.e("ServiceImpl", "beacon.toString() NullPointerException exception");
         }
         return scanned_beacon;
     }
-
-
 
     public void onDestroy() {
         //TODO: implement this
@@ -150,7 +172,7 @@ public class ServiceImpl extends IntentService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Toast.makeText(this, String.format("Service onDestroy"), Toast.LENGTH_SHORT).show();
-
+        Toast.makeText(this, "Service onDestroy", Toast.LENGTH_SHORT).show();
     }
+
 }

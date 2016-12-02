@@ -34,15 +34,16 @@ public class MainActivity extends AppCompatActivity {
     //TODO: add needed fields
     Button start_scan;
     EditText input;
-    TextView tester;
+    TextView tester; // temp textView for testing code. Will be deleted.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toast.makeText(this, String.format("onCreate"), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "onCreate", Toast.LENGTH_SHORT).show();
 
         //TODO: get intent
+        // Done. Petro.
         Intent intent = getIntent();
 
     }
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         //TODO: get intent and add beacons to List
         //showBeaconsInLinearLayout();
         Intent intent = getIntent();
-        Toast.makeText(this, String.format("onResume"), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "onResume", Toast.LENGTH_SHORT).show();
     }
 
     private void showBeaconsInLinearLayout() {
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     //Do not change this!
     protected void writeBeaconSimulationFile(){
 
-        Toast.makeText(this, String.format("Writing beacons file"), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Writing beacons file", Toast.LENGTH_SHORT).show();
 
         //Create new beacon objects
         Beacon beacon1 = new Beacon("EBBD7150-D911-11E4-8830-0800200C9A66",4,1);
@@ -111,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
         try{
             FileOutputStream testFile = openFileOutput("Beacons.txt", Context.MODE_APPEND);
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(testFile);
-            outputStreamWriter.append(FILE_HEADER.toString());
+            outputStreamWriter.append(FILE_HEADER);
             outputStreamWriter.append(NEW_LINE_SEPARATOR);
 
             for (Beacon beacon : beacons) {
@@ -131,18 +132,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //TODO: button starts the service
+    // Done. Petro.
     public void startServiceByButtonClick(View v) {
         //TODO: Get user input
+        //Done. Petro.
         start_scan = (Button) findViewById(R.id.start_scan);
         input = (EditText) findViewById(R.id.input);
-        tester = (TextView) findViewById(R.id.tester);
+        //tester = (TextView) findViewById(R.id.tester);
 
         if(input.getText().toString().equals("")) {
-            Toast.makeText(this, String.format("Please, enter scan interval."), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please, enter scan interval.", Toast.LENGTH_SHORT).show();
             return;
         }
         long seconds = Long.parseLong(input.getText().toString());
-        Toast.makeText(this, String.format("Seconds: " + String.valueOf(seconds)), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Seconds: " + String.valueOf(seconds), Toast.LENGTH_SHORT).show();
 
         //Do not change this!
         File dir = getFilesDir();
@@ -153,11 +156,12 @@ public class MainActivity extends AppCompatActivity {
         writeBeaconSimulationFile();
 
         //TODO: Service is started via intent
+        // Done. Petro.
         Intent intent = new Intent(this, ServiceImpl.class);
         intent.putExtra("seconds", seconds);
         startService(intent);
-        Toast.makeText(this, String.format("Passing intent to start service. Seconds: "
-                + String.valueOf(seconds)), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Passing intent to start service. Seconds: "
+                + String.valueOf(seconds), Toast.LENGTH_SHORT).show();
 
     }
 
@@ -165,6 +169,6 @@ public class MainActivity extends AppCompatActivity {
     public void stopServiceByButtonClick(View v) {
         //implement this
         stopService(new Intent(this, ServiceImpl.class));
-        Toast.makeText(this, String.format("Stop service main activity"), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Stop service main activity", Toast.LENGTH_SHORT).show();
     }
 }
