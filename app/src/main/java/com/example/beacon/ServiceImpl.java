@@ -24,8 +24,6 @@ import java.util.ArrayList;
 
 public class ServiceImpl extends IntentService {
 
-    //TODO: include needed fields
-    private long seconds;
     private BufferedReader reader;
     private ArrayList<Beacon> scanned_beacons = new ArrayList<>();
     public static  int NOTIFICATION_ID = 1; //Andriy. 02.12.2016
@@ -45,7 +43,7 @@ public class ServiceImpl extends IntentService {
 
         //TODO: get the seconds from intent
         // Done. Petro 29.11.16
-        seconds = intent.getExtras().getLong("seconds");
+        long seconds = intent.getExtras().getLong("seconds");
 
         //how long the service should sleep, in milliseconds
         long millis = seconds * 1000;
@@ -53,8 +51,6 @@ public class ServiceImpl extends IntentService {
         while (true) {
             try {
                 Beacon beacon = scanBeacon();
-                Log.v("ServiceImpl", "onHandleIntent while loop executing");
-
                 if(beacon != null){
                     //TODO: add beacons to the List of scanned beacons
                     // Done. Petro.
@@ -129,8 +125,7 @@ public class ServiceImpl extends IntentService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Toast.makeText(this, "setupInputReader executed", Toast.LENGTH_SHORT).show();
-
+        Log.v("ServiceImpl", "setupInputReader executed");
     }
 
     private Beacon scanBeacon() {
@@ -138,11 +133,11 @@ public class ServiceImpl extends IntentService {
         // Done. Petro 29.12.16
         //create a new beacon and return it
         Log.v("ServiceImpl", "scanBeacon() called");
-        String line = "";
+        String line;
         Beacon scanned_beacon = null;
         try {
             line = reader.readLine();
-            if(line != null) {
+            if(!line.isEmpty()) {
                 String[] beacon_params = line.split(MainActivity.COMMA_DELIMITER);
                 String uuid = beacon_params[0];
                 int major = Integer.parseInt(beacon_params[1]);
@@ -169,7 +164,7 @@ public class ServiceImpl extends IntentService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Toast.makeText(this, "Service onDestroy", Toast.LENGTH_SHORT).show();
+        Log.v("ServiceImpl", "onDestroy");
     }
 
 }

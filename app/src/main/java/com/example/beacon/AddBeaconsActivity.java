@@ -9,6 +9,7 @@ import android.support.v4.view.MarginLayoutParamsCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -24,13 +25,13 @@ import java.util.ArrayList;
 
 public class AddBeaconsActivity extends AppCompatActivity {
 
-    private ArrayList<Beacon> scanned_beacons;
+    public ArrayList<Beacon> scanned_beacons;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_beacons);
-        Toast.makeText(this, "onCreate() AddBeaconsActivity", Toast.LENGTH_SHORT).show();
+        Log.v("AddBeaconsActivity", "onCreate() started");
         Intent intent = getIntent();
         scanned_beacons = intent.getParcelableArrayListExtra("Beacon Array");
         TableLayout tableLayout = (TableLayout) findViewById(R.id.scanned_beacons_table);
@@ -39,19 +40,22 @@ public class AddBeaconsActivity extends AppCompatActivity {
 
     protected void onResume(){
         super.onResume();
-        Toast.makeText(this, "onResume() AddBeaconsActivity", Toast.LENGTH_SHORT).show();
     }
 
+    /*
+    * Creates a table containing scanned beacons data
+    * Andriy, Petro 02.12.2016 - 03.12.2016
+     */
     private  void createTable(TableLayout tableLayout, ArrayList<Beacon> scanned_beacons) {
 
         ViewGroup.LayoutParams params;
 
         TextView [][] arrText = new TextView[scanned_beacons.size()][3];
-        int column = 0;
+        int column;
+
         for(int row = 0; row < scanned_beacons.size(); row++)
         {
             column = 0;
-
             arrText[row][column] = new TextView(this);
             TextView uuid_header = (TextView) findViewById(R.id.uuid_header);
             params = uuid_header.getLayoutParams();
@@ -68,7 +72,7 @@ public class AddBeaconsActivity extends AppCompatActivity {
             arrText[row][column].setLayoutParams(params);
             arrText[row][column].setPaddingRelative(4, 0, 0, 0);
             arrText[row][column].setBackgroundResource(R.drawable.cell_background);
-            arrText[row][column].setText(scanned_beacons.get(row).getMajor().toString());
+            arrText[row][column].setText(String.valueOf(scanned_beacons.get(row).getMajor()));
 
             column += 1;
 
@@ -78,7 +82,7 @@ public class AddBeaconsActivity extends AppCompatActivity {
             arrText[row][column].setLayoutParams(params);
             arrText[row][column].setPaddingRelative(4, 0, 0, 0);
             arrText[row][column].setBackgroundResource(R.drawable.cell_background);
-            arrText[row][column].setText(scanned_beacons.get(row).getMinor().toString());
+            arrText[row][column].setText(String.valueOf(scanned_beacons.get(row).getMinor()));
 
         }
 
@@ -98,15 +102,21 @@ public class AddBeaconsActivity extends AppCompatActivity {
 
     }
 
-
+    /*
+    * Starts MainActivity, sends intent with an ArrayList of scanned beacons
+    * Petro 03.12.2016.
+     */
     public void addBeaconsByButtonClick(View v) {
-        Toast.makeText(this, "Add beacons button pressed", Toast.LENGTH_SHORT).show();
-        //to be implemented
+
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putParcelableArrayListExtra("scanned_beacons", scanned_beacons);
+        Log.v("AddBeaconsActivity", "AddBeacons button clicked. Starting MainActivity.");
+        startActivity(intent);
     }
 
     protected void onDestroy(){
         super.onDestroy();
-        Toast.makeText(this, "onResume() AddBeaconsActivity", Toast.LENGTH_SHORT).show();
+        Log.v("AddBeaconsActivity", "onDestoy()");
     }
 
 }

@@ -7,4 +7,7 @@
     <string name="add_beacons_text">Add scanned beacons to collection:</string>
     <string name="add_beacons_button">ADD BEACONS</string>
     <string name="scanned_beacons_text">Scanned beacons:</string>
+    <string name="uuid">uuid</string>
+    <string name="major">major</string>
+    <string name="minor">minor</string>
 </resources>

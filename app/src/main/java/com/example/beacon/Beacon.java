@@ -8,20 +8,20 @@ import java.io.Serializable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Beacon implements BeaconIF, Serializable, Parcelable {
+class Beacon implements BeaconIF, Serializable, Parcelable {
 
     private String uuid;
     private int major;
     private int minor;
 
-    public Beacon(String uuid, int major, int minor) {
+    Beacon(String uuid, int major, int minor) {
         this.uuid = uuid;
         this.major = major;
         this.minor = minor;
     }
 
     // Andriy 02.12.16
-    public Beacon(Parcel source) {
+    private Beacon(Parcel source) {
         uuid = source.readString();
         major = source.readInt();
         minor = source.readInt();

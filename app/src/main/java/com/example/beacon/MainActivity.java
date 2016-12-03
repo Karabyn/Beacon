@@ -32,39 +32,41 @@ public class MainActivity extends AppCompatActivity {
     private static final String FILE_HEADER = "UUID,MAJOR,MINOR";
 
     //TODO: add needed fields
+    ArrayList<Beacon> scanned_beacons;
     Button start_scan;
     EditText input;
-    TextView tester; // temp textView for testing code. Will be deleted.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toast.makeText(this, "onCreate", Toast.LENGTH_SHORT).show();
+        Log.v("MainActivity", "onCreate() started");
 
         //TODO: get intent
         // Done. Petro.
         Intent intent = getIntent();
-
     }
 
     @Override
     protected void onResume() {
         super.onResume(); // added on 26.11.16 by Petro
+        Log.v("MainActivity", "onResume() started");
         //TODO: get intent and add beacons to List
-        //showBeaconsInLinearLayout();
+        // Done. Petro 03.12.2016
         Intent intent = getIntent();
-        Toast.makeText(this, "onResume", Toast.LENGTH_SHORT).show();
+        if (intent.hasExtra("scanned_beacons")) {
+            scanned_beacons = intent.getParcelableArrayListExtra("scanned_beacons");
+            showBeaconsInLinearLayout();
+        }
     }
 
     private void showBeaconsInLinearLayout() {
         //TODO: implement this
+        Toast.makeText(this, "showBeaconsInLinearLayout()", Toast.LENGTH_SHORT).show();
     }
 
     //Do not change this!
     protected void writeBeaconSimulationFile(){
-
-        Toast.makeText(this, "Writing beacons file", Toast.LENGTH_SHORT).show();
 
         //Create new beacon objects
         Beacon beacon1 = new Beacon("EBBD7150-D911-11E4-8830-0800200C9A66",4,1);
@@ -138,31 +140,31 @@ public class MainActivity extends AppCompatActivity {
         //Done. Petro.
         start_scan = (Button) findViewById(R.id.start_scan);
         input = (EditText) findViewById(R.id.input);
-        //tester = (TextView) findViewById(R.id.tester);
 
+        //Case with no input
         if(input.getText().toString().equals("")) {
             Toast.makeText(this, "Please, enter scan interval.", Toast.LENGTH_SHORT).show();
-            return;
         }
-        long seconds = Long.parseLong(input.getText().toString());
-        Toast.makeText(this, "Seconds: " + String.valueOf(seconds), Toast.LENGTH_SHORT).show();
+        else {
+            long seconds = Long.parseLong(input.getText().toString());
+            Log.v("MainActivity", "startServiceByButtonClick() Scan interval: "
+                    + String.valueOf(seconds) + " seconds");
 
-        //Do not change this!
-        File dir = getFilesDir();
-        File file = new File(dir, "Beacons.txt");
-        boolean deleted = file.delete();
+            //Do not change this!
+            File dir = getFilesDir();
+            File file = new File(dir, "Beacons.txt");
+            boolean deleted = file.delete();
 
-        //this method writes the file containing simulated beacon data
-        writeBeaconSimulationFile();
+            //this method writes the file containing simulated beacon data
+            writeBeaconSimulationFile();
 
-        //TODO: Service is started via intent
-        // Done. Petro.
-        Intent intent = new Intent(this, ServiceImpl.class);
-        intent.putExtra("seconds", seconds);
-        startService(intent);
-        Toast.makeText(this, "Passing intent to start service. Seconds: "
-                + String.valueOf(seconds), Toast.LENGTH_SHORT).show();
-
+            //TODO: Service is started via intent
+            // Done. Petro.
+            Intent intent = new Intent(this, ServiceImpl.class);
+            intent.putExtra("seconds", seconds);
+            startService(intent);
+            Log.v("Main Activity", "startServiceByButtonClick() starting service");
+        }
     }
 
     //TODO: stop service
