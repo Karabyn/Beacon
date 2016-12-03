@@ -46,12 +46,59 @@
             android:text="@string/scanned_beacons_text"
             android:layout_marginTop="16dp" />
 
+
         <TableLayout
             android:id="@+id/scanned_beacons_table"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/scanned_beacons_text"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="16dp"
+            android:stretchColumns="0,1,2">
+
+
+            <TableRow
+                android:id="@+id/scanned_beacons_table_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/uuid_header"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_column="0"
+                    android:layout_weight="3.5"
+                    android:paddingStart="4dp"
+                    android:text="uuid"
+                    android:textStyle="normal|bold"
+                    android:background="@drawable/cell_background" />
+
+                <TextView
+                    android:id="@+id/major_header"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_column="1"
+                    android:layout_weight="1"
+                    android:paddingStart="4dp"
+                    android:text="major"
+                    android:textStyle="normal|bold"
+                    android:background="@drawable/cell_background"/>
+
+                <TextView
+                    android:id="@+id/minor_header"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_column="2"
+                    android:layout_weight="1"
+                    android:paddingStart="4dp"
+                    android:text="minor"
+                    android:textStyle="normal|bold"
+                    android:background="@drawable/cell_background"/>
+
+            </TableRow>
+
+        </TableLayout>
+
+
 
     </RelativeLayout>
 

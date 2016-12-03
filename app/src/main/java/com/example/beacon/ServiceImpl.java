@@ -63,8 +63,8 @@ public class ServiceImpl extends IntentService {
                     //TODO: notification
                     //Done. Andriy 02.12.2016
                     Intent intent1 = new Intent(this, AddBeaconsActivity.class);
-
-                    PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent1, 0);
+                    intent1.putParcelableArrayListExtra("Beacon Array", scanned_beacons);
+                    PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
                     Notification notification = new Notification.Builder(this)
                             .setSmallIcon(R.mipmap.ic_launcher)
                             .setContentTitle("New Beacon found")
@@ -129,7 +129,7 @@ public class ServiceImpl extends IntentService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Toast.makeText(this, String.format("setupInputReader executed"), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "setupInputReader executed", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -149,10 +149,7 @@ public class ServiceImpl extends IntentService {
                 int minor = Integer.parseInt(beacon_params[2]);
                 scanned_beacon = new Beacon(uuid, major, minor);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-         catch (NullPointerException e){
+        } catch (IOException | NullPointerException e) {
             e.printStackTrace();
         }
         try {

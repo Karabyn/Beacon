@@ -5,8 +5,10 @@ package com.example.beacon;
  */
 
 import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Beacon implements BeaconIF, Serializable {
+public class Beacon implements BeaconIF, Serializable, Parcelable {
 
     private String uuid;
     private int major;
@@ -16,6 +18,13 @@ public class Beacon implements BeaconIF, Serializable {
         this.uuid = uuid;
         this.major = major;
         this.minor = minor;
+    }
+
+    // Andriy 02.12.16
+    public Beacon(Parcel source) {
+        uuid = source.readString();
+        major = source.readInt();
+        minor = source.readInt();
     }
 
     @Override
@@ -71,5 +80,27 @@ public class Beacon implements BeaconIF, Serializable {
     public int hashCode(){
         return major + minor;
     }
+
+    //Andriy 02.12.16
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(uuid);
+        dest.writeInt(major);
+        dest.writeInt(minor);
+    }
+    public int describeContents() {
+        return 0;
+    }
+    public static final Parcelable.Creator<Beacon> CREATOR = new Parcelable.Creator<Beacon>() {
+
+        @Override
+        public Beacon createFromParcel(Parcel source) {
+            return new Beacon(source);
+        }
+
+        @Override
+        public Beacon[] newArray(int size) {
+            return new Beacon[size];
+        }
+    };
 }
 
