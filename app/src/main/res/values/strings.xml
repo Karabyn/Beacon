@@ -10,4 +10,5 @@
     <string name="uuid">uuid</string>
     <string name="major">major</string>
     <string name="minor">minor</string>
+    <string name="title">"Beacon Simulation"</string>
 </resources>

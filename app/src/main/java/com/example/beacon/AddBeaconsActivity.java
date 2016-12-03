@@ -30,6 +30,7 @@ public class AddBeaconsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle(R.string.title);
         setContentView(R.layout.activity_add_beacons);
         Log.v("AddBeaconsActivity", "onCreate() started");
         Intent intent = getIntent();
