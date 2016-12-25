@@ -1,23 +1,14 @@
 package com.example.beacon;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.os.Parcel;
-import android.print.PrintAttributes;
-import android.support.v4.view.MarginLayoutParamsCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -62,7 +53,7 @@ public class AddBeaconsActivity extends AppCompatActivity {
             params = uuid_header.getLayoutParams();
             arrText[row][column].setLayoutParams(params);
             arrText[row][column].setPaddingRelative(4, 0, 0, 0);
-            arrText[row][column].setBackgroundResource(R.drawable.cell_background);
+            arrText[row][column].setBackgroundResource(R.drawable.cell_background_orange);
             arrText[row][column].setText(scanned_beacons.get(row).getUUID());
 
             column += 1;
@@ -72,7 +63,7 @@ public class AddBeaconsActivity extends AppCompatActivity {
             params = major_header.getLayoutParams();
             arrText[row][column].setLayoutParams(params);
             arrText[row][column].setPaddingRelative(4, 0, 0, 0);
-            arrText[row][column].setBackgroundResource(R.drawable.cell_background);
+            arrText[row][column].setBackgroundResource(R.drawable.cell_background_orange);
             arrText[row][column].setText(String.valueOf(scanned_beacons.get(row).getMajor()));
 
             column += 1;
@@ -82,7 +73,7 @@ public class AddBeaconsActivity extends AppCompatActivity {
             params = minor_header.getLayoutParams();
             arrText[row][column].setLayoutParams(params);
             arrText[row][column].setPaddingRelative(4, 0, 0, 0);
-            arrText[row][column].setBackgroundResource(R.drawable.cell_background);
+            arrText[row][column].setBackgroundResource(R.drawable.cell_background_orange);
             arrText[row][column].setText(String.valueOf(scanned_beacons.get(row).getMinor()));
 
         }
@@ -119,5 +110,4 @@ public class AddBeaconsActivity extends AppCompatActivity {
         super.onDestroy();
         Log.v("AddBeaconsActivity", "onDestoy()");
     }
-
 }

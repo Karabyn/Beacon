@@ -6,6 +6,9 @@
     android:layout_height="match_parent"
     android:fillViewport="true">
 
+
+
+
     <RelativeLayout
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/activity_main"
@@ -16,6 +19,13 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
         tools:context="com.example.beacon.MainActivity">
+
+        <!-- Dummy item to prevent AutoCompleteTextView from receiving focus -->
+        <LinearLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="0px"
+            android:layout_height="0px"/>
 
         <TextView
             android:id="@+id/scan_interval"
@@ -67,6 +77,128 @@
                 android:onClick="stopServiceByButtonClick"/>
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/t_view"
+            android:layout_below="@id/buttons_linear_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/collected_beacons"
+            android:layout_marginTop="20dp"
+            />
+
+        <TextView
+            android:id="@+id/b_left"
+            android:layout_below="@id/t_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/beacon_left"
+            android:layout_marginTop="10dp"
+            />
+
+        <TextView
+            android:id="@+id/b_right"
+            android:layout_below="@id/t_view"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/beacon_right"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="81dp"
+            />
+
+        <TableLayout
+            android:id="@+id/scanned_beacons_table_second"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/b_left"
+            android:layout_marginTop="5dp"
+            android:stretchColumns="0,1,2,3,4,5"
+
+            >
+            <TableRow
+                android:id="@+id/scanned_beacons_table_header_second"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/uuid_header_1"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_column="0"
+                    android:layout_weight="1.5"
+                    android:paddingStart="4dp"
+                    android:text="@string/uuid"
+                    android:textStyle="normal|bold"
+                    android:background="@drawable/cell_background" />
+
+                <TextView
+                    android:id="@+id/major_header_1"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_column="1"
+                    android:layout_weight="1"
+                    android:paddingStart="4dp"
+                    android:text="@string/major"
+                    android:textStyle="normal|bold"
+                    android:background="@drawable/cell_background"/>
+
+                <TextView
+                    android:id="@+id/minor_header_1"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_column="2"
+                    android:layout_weight="1"
+                    android:paddingStart="4dp"
+                    android:text="@string/minor"
+                    android:textStyle="normal|bold"
+                    android:background="@drawable/cell_background"/>
+
+
+                <TextView
+                    android:id="@+id/uuid_header_2"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_column="3"
+                    android:layout_weight="1.5"
+                    android:paddingStart="4dp"
+                    android:text="@string/uuid"
+                    android:textStyle="normal|bold"
+                    android:background="@drawable/cell_background" />
+
+                <TextView
+                    android:id="@+id/major_header_2"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_column="4"
+                    android:layout_weight="1"
+                    android:paddingStart="4dp"
+                    android:text="@string/major"
+                    android:textStyle="normal|bold"
+                    android:background="@drawable/cell_background"/>
+
+                <TextView
+                    android:id="@+id/minor_header_2"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_column="5"
+                    android:layout_weight="1"
+                    android:paddingStart="4dp"
+                    android:text="@string/minor"
+                    android:textStyle="normal|bold"
+                    android:background="@drawable/cell_background"/>
+
+            </TableRow>
+
+        </TableLayout>
+
+        <RelativeLayout
+            android:id="@+id/SpecialMovementsButtonLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/scanned_beacons_table_second"
+            android:layout_marginTop="16dp">
+        </RelativeLayout>
 
     </RelativeLayout>
 

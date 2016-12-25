@@ -11,4 +11,8 @@
     <string name="major">major</string>
     <string name="minor">minor</string>
     <string name="title">"Beacon Simulation"</string>
+    <string name="collected_beacons">Collected beacons(neighbours):</string>
+    <string name="beacon_left">Beacon left</string>
+    <string name="beacon_right">Beacon right</string>
+    <string name="specialMovements">Special moves</string>
 </resources>

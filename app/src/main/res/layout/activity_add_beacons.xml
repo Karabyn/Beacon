@@ -29,14 +29,16 @@
             android:layout_below="@id/add_beacons_text"
             android:id="@+id/add_beacons_button"
             android:background="@android:color/holo_orange_dark"
-            android:textStyle="bold"
+            android:textColor="#FF000000"
             android:hint="@string/add_beacons_button"
             android:onClick="addBeaconsByButtonClick"
             android:layout_centerVertical="false"
             android:layout_centerInParent="true"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="16dp"
+            android:alpha="1"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/scanned_beacons_text"
@@ -69,7 +71,7 @@
                     android:paddingStart="4dp"
                     android:text="@string/uuid"
                     android:textStyle="normal|bold"
-                    android:background="@drawable/cell_background" />
+                    android:background="@drawable/cell_background_orange" />
 
                 <TextView
                     android:id="@+id/major_header"
@@ -80,7 +82,7 @@
                     android:paddingStart="4dp"
                     android:text="@string/major"
                     android:textStyle="normal|bold"
-                    android:background="@drawable/cell_background"/>
+                    android:background="@drawable/cell_background_orange"/>
 
                 <TextView
                     android:id="@+id/minor_header"
@@ -91,7 +93,7 @@
                     android:paddingStart="4dp"
                     android:text="@string/minor"
                     android:textStyle="normal|bold"
-                    android:background="@drawable/cell_background"/>
+                    android:background="@drawable/cell_background_orange"/>
 
             </TableRow>
 
