@@ -69,7 +69,13 @@ public class MainActivity extends AppCompatActivity {
     //by Pavlo.
     private void showBeaconsInLinearLayout(TableLayout tableLayout, ArrayList<Beacon> scanned_beacons) {
         ViewGroup.LayoutParams params;
-
+        tableLayout.setVisibility(View.VISIBLE);
+        TextView cb=(TextView)findViewById(R.id.t_view);
+        TextView becon_Left=(TextView)findViewById(R.id.b_left);
+        TextView becon_Right=(TextView)findViewById(R.id.b_right);
+        cb.setVisibility(View.VISIBLE);
+        becon_Left.setVisibility(View.VISIBLE);
+        becon_Right.setVisibility(View.VISIBLE);
         TextView[][] arrText = new TextView[scanned_beacons.size()-1][6];
         int column;
 
